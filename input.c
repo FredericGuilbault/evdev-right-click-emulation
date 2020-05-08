@@ -4,11 +4,13 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <sys/select.h>
 #include <sys/timerfd.h>
 #include <unistd.h>
 
 struct input_state_t {
+    bool pressing;
     int pressed_device_id;
     int pos_x, pos_y;
     int pressed_pos_x, pressed_pos_y;
@@ -85,6 +87,10 @@ void on_input_event(struct input_state_t *state,
             arm_delayed_rclick(state, dev_id);
         } else {
             // Finger released. It is no longer considered a long-press
+            if (state->pressing) {
+                uinput_send_right_click_up(state->uinput);
+                state->pressing = false;
+            }
             unarm_delayed_rclick(state);
         }
     }
@@ -96,8 +102,10 @@ void on_timer_expire(struct input_state_t *state) {
     // Only consider movement within a range to be "still"
     // i.e. if movement is within this value during timeout
     //      , then it is a long click
-    if (dx <= LONG_CLICK_FUZZ && dy <= LONG_CLICK_FUZZ)
-        uinput_send_right_click(state->uinput);
+    if (dx <= LONG_CLICK_FUZZ && dy <= LONG_CLICK_FUZZ) {
+        uinput_send_right_click_down(state->uinput);
+        state->pressing = true;
+    }
     // In Linux implementation of timerfd, the fd becomes always "readable"
     // after the timeout. So we have to unarm it after we receive the event.
     unarm_delayed_rclick(state);
@@ -106,6 +114,7 @@ void on_timer_expire(struct input_state_t *state) {
 void process_evdev_input(int num, struct libevdev **evdev) {
     // Initialize everything to -1
     struct input_state_t state = {
+        .pressing = false,
         .pressed_device_id = -1,
         .pos_x = -1, .pos_y = -1,
         .pressed_pos_x = -1, .pressed_pos_y = -1,
