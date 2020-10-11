@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdbool.h>
 #include <sys/select.h>
 #include <sys/timerfd.h>
@@ -15,6 +16,7 @@ struct input_state_t {
     int pos_x, pos_y;
     int pressed_pos_x, pressed_pos_y;
     int fd_timer; // The timer used to execute right click on timeout
+    struct timespec start;
     struct libevdev_uinput *uinput;
 };
 
@@ -41,14 +43,14 @@ int build_fd_set(fd_set *fds, int fd_timer,
 }
 
 void arm_delayed_rclick(struct input_state_t *state, int dev_id) {
-    // Record the position where the touch event began
-    state->pressed_pos_x = state->pos_x;
-    state->pressed_pos_y = state->pos_y;
-    state->pressed_device_id = dev_id;
     // Start the timer; once timeout reached,
     // fire the right click event
     timerfd_settime(state->fd_timer, 0, &(struct itimerspec) {
-        .it_value = LONG_CLICK_INTERVAL,
+        .it_value =
+        {
+            .tv_sec = 0,
+            .tv_nsec = 20 * 1000000,
+        },
     }, NULL);
 }
 
@@ -61,6 +63,10 @@ void unarm_delayed_rclick(struct input_state_t *state) {
             .tv_nsec = 0,
         },
     }, NULL);
+}
+
+uint64_t millis(struct timespec time) {
+   return time.tv_sec * 1000 + time.tv_nsec / 1000000;
 }
 
 void on_input_event(struct input_state_t *state,
@@ -81,31 +87,33 @@ void on_input_event(struct input_state_t *state,
     } else if (ev->type == EV_KEY && ev->code == BTN_TOUCH) {
         // Touch event
         if (ev->value == 1) {
-            // Schedule a delayed right click event
-            // so that if anything happens before the long-press timeout,
-            // it can be canceled
-            arm_delayed_rclick(state, dev_id);
+            // Record the position where the touch event began and start time
+            clock_gettime(CLOCK_MONOTONIC_RAW, &state->start);
+            state->pressed_pos_x = state->pos_x;
+            state->pressed_pos_y = state->pos_y;
+            state->pressed_device_id = dev_id;
         } else {
-            // Finger released. It is no longer considered a long-press
-            if (state->pressing) {
-                uinput_send_right_click_up(state->uinput);
-                state->pressing = false;
+            struct timespec end;
+            clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+            uint64_t delta_us = millis(end) - millis(state->start);
+            if (delta_us >= millis(LONG_CLICK_INTERVAL)) {
+                unsigned int dx = abs(state->pos_x - state->pressed_pos_x);
+                unsigned int dy = abs(state->pos_y - state->pressed_pos_y);
+                // Only consider movement within a range to be "still"
+                // i.e. if movement is within this value during timeout,
+                //   then it is a long click
+                if (dx <= LONG_CLICK_FUZZ && dy <= LONG_CLICK_FUZZ) {
+                   arm_delayed_rclick(state, dev_id);
+                }
             }
-            unarm_delayed_rclick(state);
         }
     }
 }
 
 void on_timer_expire(struct input_state_t *state) {
-    unsigned int dx = abs(state->pos_x - state->pressed_pos_x);
-    unsigned int dy = abs(state->pos_y - state->pressed_pos_y);
-    // Only consider movement within a range to be "still"
-    // i.e. if movement is within this value during timeout
-    //      , then it is a long click
-    if (dx <= LONG_CLICK_FUZZ && dy <= LONG_CLICK_FUZZ) {
-        uinput_send_right_click_down(state->uinput);
-        state->pressing = true;
-    }
+    uinput_send_right_click_down(state->uinput);
+    uinput_send_right_click_up(state->uinput);
+    state->pressing = true;
     // In Linux implementation of timerfd, the fd becomes always "readable"
     // after the timeout. So we have to unarm it after we receive the event.
     unarm_delayed_rclick(state);
