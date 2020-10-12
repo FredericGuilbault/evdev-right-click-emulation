@@ -4,3 +4,5 @@ evdev-rce (0.9) UNRELEASED; urgency=low
 
   * Changes to delay right click after Left-Up event is sent.
 
+  -- mgrouch <mgrouch@users.github.com>  Mon 12 Oct 2020 17:23:17 -0500
+
