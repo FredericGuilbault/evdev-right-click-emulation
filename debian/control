@@ -11,6 +11,7 @@ Standards-Version: 4.1.4
 Vcs-Browser: https://github.com/bareboat-necessities/evdev-right-click-emulation
 Vcs-Git: https://github.com/bareboat-necessities/evdev-right-click-emulation.git
 Homepage: https://github.com/bareboat-necessities/
+
 Package: evdev-rce
 Architecture: any
 Multi-Arch: foreign
