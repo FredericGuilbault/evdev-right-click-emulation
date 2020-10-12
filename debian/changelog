@@ -2,6 +2,5 @@ evdev-rce (0.9) UNRELEASED; urgency=low
 
   * Initial release.
 
-  * Changes to delay right click after Left-Up event is sent
-
+  * Changes to delay right click after Left-Up event is sent.
 
