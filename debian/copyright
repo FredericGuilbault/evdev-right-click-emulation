@@ -1,0 +1,38 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: evdev-rce
+Source: https://github.com/bareboat-necessities/evdev-right-click-emulation.git
+Files:     Makefile
+           README.md
+           input.c
+           input.h
+           pkg/evdev-right-click-emulation-kai/.SRCINFO
+           pkg/evdev-right-click-emulation-kai/PKGBUILD
+           pkg/evdev-right-click-emulation-kai/evdev-rce.conf
+           pkg/evdev-right-click-emulation-kai/evdev-rce.service
+           pkg/evdev-right-click-emulation-kai/evdev-right-click-emulation-kai.install
+           rce.c
+           rce.h
+           uinput.c
+           uinput.h
+Copyright: Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+License:   http://www.wtfpl.net/txt/copying/
+
+#----------------------------------------------------------------------------
+# Files marked as NO_LICENSE_TEXT_FOUND may be covered by the following
+# license/copyright files.
+
+#----------------------------------------------------------------------------
+# License file: LICENSE
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                    Version 2, December 2004
+ .
+ Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+ .
+ Everyone is permitted to copy and distribute verbatim or modified
+ copies of this license document, and changing it is allowed as long
+ as the name is changed.
+ .
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+ .
+  0. You just DO WHAT THE FUCK YOU WANT TO.

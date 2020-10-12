@@ -1,0 +1,23 @@
+Source: evdev-rce
+Section: misc
+Priority: optional
+Maintainer: <mgrouch@users.github.com>
+Build-Depends: debhelper (>=11~),
+ build-essential,
+ libevdev2,
+ libevdev-dev,
+ libinput-dev
+Standards-Version: 4.1.4
+Vcs-Browser: https://github.com/bareboat-necessities/evdev-right-click-emulation
+Vcs-Git: https://github.com/bareboat-necessities/evdev-right-click-emulation.git
+Homepage: https://github.com/bareboat-necessities/
+Package: evdev-rce
+Architecture: any
+Multi-Arch: foreign
+Depends: libevdev2, ${misc:Depends}, ${shlibs:Depends}
+Description: A program that solves the problem of right clicks on Linux devices with a touchscreen. It implements the
+ long-press-to-right-click gesture on Linux touchscreen devices while having no specific requirements on the desktop
+ environment, display server or the distribution, which greatly improves the touch experience for users of Linux
+ distributions. It directly reads from evdev touchscreen input devices, parses the events, and triggers a right click
+ with uinput when it detects a long press from a touchscreen. Since evdev is lower-level than libinput or any other
+ user-space input driver, this program can work regardless of your choice of Xorg or Wayland.
