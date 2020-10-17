@@ -1,3 +1,9 @@
+evdev-rce (0.9.5-1ppa1~bionic1) bionic; urgency=low
+
+  * quilt
+
+ -- mgrouch <mgrouch@users.github.com>  Sat, 17 Oct 2020 10:30:45 -0500
+
 evdev-rce (0.9.4-1ppa1~bionic1) bionic; urgency=low
 
   * target other distros
