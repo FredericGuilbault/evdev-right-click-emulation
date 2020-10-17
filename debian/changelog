@@ -1,3 +1,9 @@
+evdev-rce (0.9.3) bionic; urgency=low
+
+  * debian fix
+
+ -- mgrouch <mgrouch@users.github.com>  Sat, 17 Oct 2020 09:47:15 -0500
+
 evdev-rce (0.9.2) bionic; urgency=low
 
   * makefile fix.
