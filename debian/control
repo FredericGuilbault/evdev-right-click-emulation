@@ -3,7 +3,6 @@ Section: misc
 Priority: optional
 Maintainer: mgrouch <mgrouch@users.github.com>
 Build-Depends: debhelper (>=11~),
- build-essential,
  libevdev2,
  libevdev-dev,
  libinput-dev
