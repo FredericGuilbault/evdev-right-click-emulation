@@ -1,4 +1,4 @@
-evdev-rce (0.9.1) UNRELEASED; urgency=low
+evdev-rce (0.9.1) bionic; urgency=low
 
   * Changes for debian packaging.
 
