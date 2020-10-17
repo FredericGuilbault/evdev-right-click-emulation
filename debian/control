@@ -1,7 +1,7 @@
 Source: evdev-rce
 Section: misc
 Priority: optional
-Maintainer: <mgrouch@users.github.com>
+Maintainer: mgrouch <mgrouch@users.github.com>
 Build-Depends: debhelper (>=11~),
  build-essential,
  libevdev2,
