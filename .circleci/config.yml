@@ -16,4 +16,4 @@ workflows:
   version: 2
   build_all:
     jobs:
-      - build-bionic-arm64:
+      - build-bionic-arm64
