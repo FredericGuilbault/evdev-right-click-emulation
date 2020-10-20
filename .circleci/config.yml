@@ -1,0 +1,19 @@
+---
+version: 2.1
+jobs:
+  build-bionic-arm64:
+    machine: true
+    environment:
+      - DOCKER_IMAGE=arm64v8/ubuntu:18.04
+      - BUILD_ENV=ubuntu
+    steps:
+      - checkout
+      - run: chmod a+x ./ci/*.sh
+      - run:
+          command: ci/circleci-build-debian.sh
+          no_output_timeout: 30m
+workflows:
+  version: 2
+  build_all:
+    jobs:
+      - build-bionic-arm64:
