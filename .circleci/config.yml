@@ -17,7 +17,7 @@ jobs:
                 #
                 # Make sure the builder is copy the arm emulator
                 sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-                sudo apt-get -y update
+                sudo apt update
                 source ".circleci/build-debian.sh
             else
                 echo "Skipping because $DOCKERHUB_DOCKEFILE is not found"
