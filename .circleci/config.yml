@@ -10,6 +10,8 @@ jobs:
       - checkout
       - run: chmod a+x ./ci/*.sh
       - run:
+          command: cat /etc/apt/sources.list
+      - run:
           command: ci/circleci-build-debian.sh
           no_output_timeout: 30m
 workflows:
