@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# If Input CIRCLE_TAG="Bitcoin/0.17.0-1"
+# Then Output:
+# NODE_NAME:Bitcoin
+# LATEST_TAG:0.17.0-1
+# NODE_VERSION:0.17.0
+# REVISION:1
+# DOCKERHUB_REPO:btcpayserver/bitcoin
+# DOCKERHUB_DESTINATION:btcpayserver/bitcoin:0.17.0-1
+# DOCKERHUB_DOCKEFILE_ARM64:Bitcoin/0.17.0/linuxarm64v8.Dockerfile
+# DOCKERHUB_DOCKEFILE_ARM32:Bitcoin/0.17.0/linuxarm32v7.Dockerfile
+# DOCKERHUB_DOCKEFILE_AMD64:Bitcoin/0.17.0/linuxamd64.Dockerfile
+
 SEPARATOR=$(expr index "$CIRCLE_TAG" "/")
 NODE_NAME=${CIRCLE_TAG:0:$SEPARATOR-1}
 if expr index "$CIRCLE_TAG" "-" > /dev/null; then
