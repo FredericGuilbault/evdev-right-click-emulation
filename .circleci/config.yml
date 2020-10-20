@@ -11,17 +11,6 @@ jobs:
       - run:
           command: |
             source ".circleci/parse-tag.sh"
-            DOCKERHUB_DOCKEFILE="$DOCKERHUB_DOCKEFILE_ARM64"
-            DOCKERHUB_DESTINATION="$DOCKERHUB_REPO:$LATEST_TAG-arm64v8"
-            echo $DOCKERHUB_DOCKEFILE
-            echo $DOCKERHUB_DESTINATION
-            if [ -f $DOCKERHUB_DOCKEFILE ]; then
-              echo "running emulator"
-              # Make sure the builder is copy the arm emulator
-              sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-            else
-              echo "Skipping because $DOCKERHUB_DOCKEFILE is not found"
-            fi
 workflows:
   version: 2
   build_all:
