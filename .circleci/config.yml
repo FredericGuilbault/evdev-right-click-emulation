@@ -1,21 +1,29 @@
 ---
 version: 2.1
 jobs:
-  build-bionic-arm64:
-    machine: true
+  build-arm64:
+    machine:
+      enabled: true
     environment:
-      - DOCKER_IMAGE=arm64v8/ubuntu:18.04
-      - BUILD_ENV=ubuntu
     steps:
       - checkout
-      - run: chmod a+x ./ci/*.sh
+      - run: chmod a+x .circleci/*.sh
       - run:
-          command: cat /etc/apt/sources.list
-      - run:
-          command: ci/circleci-build-debian.sh
-          no_output_timeout: 30m
+          command: |
+            source ".circleci/parse-tag.sh"
+            DOCKERHUB_DOCKEFILE="$DOCKERHUB_DOCKEFILE_ARM64"
+            DOCKERHUB_DESTINATION="$DOCKERHUB_REPO:$LATEST_TAG-arm64v8"
+            if [ -f $DOCKERHUB_DOCKEFILE ]; then
+                #
+                # Make sure the builder is copy the arm emulator
+                sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
+                sudo apt-get -y update
+                source ".circleci/build-debian.sh
+            else
+                echo "Skipping because $DOCKERHUB_DOCKEFILE is not found"
+            fi
 workflows:
   version: 2
   build_all:
     jobs:
-      - build-bionic-arm64
+      - build-arm64
