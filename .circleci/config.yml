@@ -9,6 +9,7 @@ jobs:
       image: ubuntu-2004:202010-01
     environment:
       - DOCKER_IMAGE=arm64v8/ubuntu:18.04
+      - BUILD_ENV=ubuntu
     steps:
       - checkout
       - run: chmod a+x .circleci/*.sh
