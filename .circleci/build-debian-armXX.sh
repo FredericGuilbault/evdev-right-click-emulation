@@ -19,7 +19,9 @@ else
     docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 fi
 
-docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw $DOCKER_IMAGE /bin/bash
+WORK_DIR=$(pwd):/ci-source
+
+docker run --privileged -d -ti -e "container=docker"  -v $WORK_DIR:rw $DOCKER_IMAGE /bin/bash
 DOCKER_CONTAINER_ID=$(docker ps --last 8 | grep $CONTAINER_DISTRO | awk '{print $1}')
 
 docker exec -ti $DOCKER_CONTAINER_ID apt-get update
@@ -27,7 +29,9 @@ docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev l
 docker exec -ti $DOCKER_CONTAINER_ID pwd
 
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-    "cd ci-source; dpkg-buildpackage -rfakeroot -b -uc -us; mkdir dist; mv `find .. -name \*.deb` dist; chmod -R a+rw dist"
+    "cd ci-source; dpkg-buildpackage -rfakeroot -b -uc -us; mkdir dist; find .. -name \*.deb; chmod -R a+rw dist"
+
+find ../$WORK_DIR -name \*.deb
 
 echo "Stopping"
 docker ps -a
