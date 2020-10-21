@@ -11,7 +11,7 @@ jobs:
       - run:
           command: |
             docker run --rm --privileged multiarch/qemu-user-static --reset
-            docker run --rm -t arm64v8/debian:buster uname -m
+            docker run --rm -t arm64v8/debian:buster-20201012 uname -m
 workflows:
   version: 2
   build_all:
