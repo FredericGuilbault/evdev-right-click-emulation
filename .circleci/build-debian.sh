@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 sudo apt-get update
-sudo apt-get -y install libevdev2 libevdev-dev libinput-dev debhelper
+sudo apt-get -y install libevdev2 libevdev-dev libinput-dev debhelper python-pip
 
 dpkg-buildpackage -rfakeroot -b -uc -us; mkdir dist; mv ../*.deb dist
 
