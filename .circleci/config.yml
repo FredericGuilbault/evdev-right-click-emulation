@@ -9,7 +9,7 @@ jobs:
       image: ubuntu-2004:202010-01
     environment:
       - DOCKER_IMAGE=arm64v8/debian:buster
-      - CONTAINER_DISTRO=debian
+      - CONTAINER_DISTRO=debian:buster
       - EMU=on
     steps:
       - checkout
@@ -27,7 +27,7 @@ jobs:
       image: ubuntu-2004:202010-01
     environment:
       - DOCKER_IMAGE=arm32v7/debian:buster
-      - CONTAINER_DISTRO=debian
+      - CONTAINER_DISTRO=debian:buster
       - EMU=on
     steps:
       - checkout
@@ -44,8 +44,8 @@ jobs:
       enabled: true
       image: ubuntu-2004:202010-01
     environment:
-      - CONTAINER_DISTRO=buildpack-deps:buster-scm
-      - DOCKER_IMAGE=circleci/buildpack-deps:buster-scm
+      - DOCKER_IMAGE=amd64/debian:buster
+      - CONTAINER_DISTRO=debian:buster
     steps:
       - checkout
       - run: chmod a+x .circleci/*.sh
