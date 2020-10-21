@@ -44,6 +44,6 @@ workflows:
       - build-buster-arm64
       - build-buster-arm32
       - publish-buster-deb
-          requires:
-            - build-buster-arm32
-            - build-buster-arm64
+        requires:
+          - build-buster-arm32
+          - build-buster-arm64
