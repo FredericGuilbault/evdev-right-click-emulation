@@ -8,7 +8,7 @@ jobs:
     - run: chmod a+x .circleci/*.sh
     - run:
         command: |
-          docker run --rm -t arm64v8/debian:buster-20201012 uname -m
+          docker run --rm -t arm64v8/debian:buster uname -m
 workflows:
   version: 2
   build_all:
