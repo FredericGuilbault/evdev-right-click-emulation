@@ -31,3 +31,5 @@ workflows:
     jobs:
       - build-arm64
       - publish-deb
+        requires:
+          - build-arm64
