@@ -31,7 +31,7 @@ docker exec -ti $DOCKER_CONTAINER_ID pwd
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "cd ci-source; dpkg-buildpackage -rfakeroot -b -uc -us; mkdir dist; find .. -name \*.deb; chmod -R a+rw dist"
 
-find $WORK_DIR/.. -name \*.deb
+find .. -name \*.deb
 
 echo "Stopping"
 docker ps -a
