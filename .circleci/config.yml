@@ -49,6 +49,33 @@ jobs:
       - PKG_DISTRO=debian/buster
     steps:
       - build-n-publish-debian
+  build-ubuntu-bionic-arm64:
+    executor: boot-linux
+    environment:
+      - DOCKER_IMAGE=arm64/ubuntu:bionic
+      - CONTAINER_DISTRO=ubuntu:bionic
+      - PKG_TYPE=deb
+      - PKG_DISTRO=ubuntu/bionic
+    steps:
+      - build-n-publish-debian
+  build-ubuntu-bionic-arm32:
+    executor: boot-linux
+    environment:
+      - DOCKER_IMAGE=arm32/ubuntu:bionic
+      - CONTAINER_DISTRO=ubuntu:bionic
+      - PKG_TYPE=deb
+      - PKG_DISTRO=ubuntu/bionic
+    steps:
+      - build-n-publish-debian
+  build-ubuntu-bionic-amd64:
+    executor: boot-linux
+    environment:
+      - DOCKER_IMAGE=amd64/ubuntu:bionic
+      - CONTAINER_DISTRO=ubuntu:bionic
+      - PKG_TYPE=deb
+      - PKG_DISTRO=ubuntu/bionic
+    steps:
+      - build-n-publish-debian
 workflows:
   version: 2
   build_all:
