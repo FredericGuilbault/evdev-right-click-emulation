@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-for pkg_file in dist/*.deb; do
-  cloudsmith push deb bbn-projects/bbn-repo/raspbian/buster $pkg_file
+EXT=$1
+REPO=$2
+DISTRO=$3
+
+for pkg_file in dist/*.$EXT; do
+  cloudsmith push deb $REPO/$DISTRO $pkg_file
 done
