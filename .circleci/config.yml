@@ -8,7 +8,7 @@ jobs:
       enabled: true
       image: ubuntu-2004:202010-01
     environment:
-      - DOCKER_IMAGE=arm64v8/ubuntu:18.04
+      - DOCKER_IMAGE=arm64v8/debian:buster
     steps:
       - checkout
       - run: chmod a+x .circleci/*.sh
