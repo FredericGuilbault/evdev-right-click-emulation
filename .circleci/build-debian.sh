@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Build for Debian ARM in a docker container
+# Build for Debian in a docker container
 #
 
 # bailout on errors and echo commands.

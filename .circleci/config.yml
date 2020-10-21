@@ -46,7 +46,6 @@ jobs:
     environment:
       - CONTAINER_DISTRO=debian
       - DOCKER_IMAGE=circleci/buildpack-deps:buster-scm
-      - EMU=off
     steps:
       - checkout
       - run: chmod a+x .circleci/*.sh
