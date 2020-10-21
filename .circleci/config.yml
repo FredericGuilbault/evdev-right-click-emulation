@@ -37,9 +37,29 @@ jobs:
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
       - run: .circleci/publish-cloudsmith.sh deb bbn-projects/bbn-repo raspbian/buster
+  build-buster:
+    docker:
+      - image: circleci/buildpack-deps:buster-scm
+    environment:
+      - CONTAINER_DISTRO=debian
+    steps:
+      - checkout
+      - run: >
+          echo "deb-src http://ftp.us.debian.org/debian buster main"
+          | sudo tee -a /etc/apt/sources.list
+      - run: >
+          echo "deb-src http://ftp.us.debian.org/debian buster-updates main"
+          | sudo tee -a /etc/apt/sources.list
+      - run: cat /etc/apt/sources.list
+      - run: chmod a+x ci/*.sh
+      - run: .circleci/build-debian.sh
+      - cloudsmith/ensure-api-key
+      - cloudsmith/install-cli
+      - run: .circleci/publish-cloudsmith.sh deb bbn-projects/bbn-repo debian/buster
 workflows:
   version: 2
   build_all:
     jobs:
       - build-buster-arm64
       - build-buster-arm32
+      - build-buster
