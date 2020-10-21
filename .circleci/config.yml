@@ -32,6 +32,7 @@ jobs:
     steps:
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
+      - run: find . -name \*.deb
       - cloudsmith/publish:
           cloudsmith-repository: bbn-projects/bbn-repo
           package-format: debian
