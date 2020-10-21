@@ -9,9 +9,9 @@ jobs:
     - checkout
     - setup_remote_docker:
         version: 19.03.13
-     - run: chmod a+x .circleci/*.sh
+    - run: chmod a+x .circleci/*.sh
     - run:
-        command:
+        command: |
           set
 workflows:
   version: 2
