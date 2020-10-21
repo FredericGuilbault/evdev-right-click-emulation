@@ -12,6 +12,8 @@ jobs:
       - run: chmod a+x .circleci/*.sh
       - run:
           command: |
+            docker run --rm --privileged multiarch/qemu-user-static --reset
+            docker run --rm -t arm64v8/debian:buster-20201012 source ".cirleci/build-debian.sh"
             source ".circleci/build-debian.sh"
 workflows:
   version: 2
