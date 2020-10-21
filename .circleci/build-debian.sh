@@ -24,7 +24,7 @@ fi
 WORK_DIR=$(pwd):/ci-source
 
 docker run --privileged -d -ti -e "container=docker"  -v $WORK_DIR:rw $DOCKER_IMAGE /bin/bash
-DOCKER_CONTAINER_ID=$(docker ps --last 8 | grep $CONTAINER_DISTRO | awk '{print $1}')
+DOCKER_CONTAINER_ID=$(docker ps --last 4 | grep $CONTAINER_DISTRO | awk '{print $1}')
 
 docker exec -ti $DOCKER_CONTAINER_ID apt-get update
 docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev libinput-dev debhelper
