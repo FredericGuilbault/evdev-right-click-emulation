@@ -42,10 +42,8 @@ workflows:
   build_all:
     jobs:
       - build-buster-arm64
-      - publish-buster-deb
+      - build-buster-arm32
+      - publish-buster-deb:
           requires:
             - build-buster-arm64
-      - build-buster-arm32
-      - publish-buster-deb
-          requires:
             - build-buster-arm32
