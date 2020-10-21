@@ -52,8 +52,8 @@ jobs:
   build-ubuntu-bionic-arm64:
     executor: boot-linux
     environment:
-      - DOCKER_IMAGE=arm64/ubuntu:bionic
-      - CONTAINER_DISTRO=ubuntu:bionic
+      - DOCKER_IMAGE=arm64v8/ubuntu:18.04
+      - CONTAINER_DISTRO=ubuntu:18.04
       - PKG_TYPE=deb
       - PKG_DISTRO=ubuntu/bionic
     steps:
@@ -61,8 +61,8 @@ jobs:
   build-ubuntu-bionic-arm32:
     executor: boot-linux
     environment:
-      - DOCKER_IMAGE=arm32/ubuntu:bionic
-      - CONTAINER_DISTRO=ubuntu:bionic
+      - DOCKER_IMAGE=arm32v7/ubuntu:18.04
+      - CONTAINER_DISTRO=ubuntu:18.04
       - PKG_TYPE=deb
       - PKG_DISTRO=ubuntu/bionic
     steps:
