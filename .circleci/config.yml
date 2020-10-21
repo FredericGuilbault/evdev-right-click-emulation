@@ -7,7 +7,6 @@ jobs:
       - DOCKER_IMAGE=arm64v8/debian:buster-20201012
     steps:
     - checkout
-    - setup_remote_docker:
     - run: chmod a+x .circleci/*.sh
     - run:
         command: |
