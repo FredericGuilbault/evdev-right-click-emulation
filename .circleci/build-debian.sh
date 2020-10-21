@@ -28,8 +28,8 @@ DOCKER_CONTAINER_ID=$(docker ps --last 4 | grep $CONTAINER_DISTRO | awk '{print 
 
 if [[ "$PKG_DISTRO" = 'ubuntu'* ]]; then
   docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-     'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main" | sudo tee -a /etc/apt/sources.list; ' \
-     'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main" | sudo tee -a /etc/apt/sources.list'
+     'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main" | tee -a /etc/apt/sources.list; ' \
+     'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main" | tee -a /etc/apt/sources.list'
 fi
 
 docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get update
