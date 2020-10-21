@@ -29,7 +29,7 @@ docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev l
 docker exec -ti $DOCKER_CONTAINER_ID pwd
 
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-    "cd ci-source; dpkg-buildpackage -rfakeroot -b -uc -us; mkdir dist; cp $(find .. -name \*.deb) dist; chmod -R a+rw dist"
+    "cd ci-source; dpkg-buildpackage -rfakeroot -b -uc -us; mkdir dist; cp ../*.deb dist; chmod -R a+rw dist"
 
 find .. -name \*.deb
 
