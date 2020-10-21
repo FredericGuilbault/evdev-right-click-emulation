@@ -16,7 +16,8 @@ jobs:
       - run:
           command: |
             .circleci/build-debian-armXX.sh
-            find ~ -name \*.deb
+          no_output_timeout: 30m
+      - run: pwd
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
       - cloudsmith/publish:
