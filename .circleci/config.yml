@@ -12,7 +12,7 @@ jobs:
     - run:
         command: |
           sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-          source ".circleci/build-debian.sh"
+          docker set
 workflows:
   version: 2
   build_all:
