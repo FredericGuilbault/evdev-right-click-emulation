@@ -22,7 +22,7 @@ jobs:
       - cloudsmith/install-cli
       - cloudsmith/publish:
           cloudsmith-repository: bbn-projects/bbn-repo
-          package-format: deb
+          package-format: debian
           package-distribution: raspbian/buster
 workflows:
   version: 2
