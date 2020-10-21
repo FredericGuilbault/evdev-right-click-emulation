@@ -11,7 +11,7 @@ commands:
   build-n-publish-debian:
     steps:
       - checkout
-      - run: sudo apt-get -y install docker
+      - run: sudo apt-get -y install docker-ce docker-ce-cli containerd.io
       - run: chmod a+x .circleci/*.sh
       - run:
           command: |
