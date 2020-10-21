@@ -4,7 +4,6 @@ orbs:
   cloudsmith: cloudsmith/cloudsmith@1.0.4
 commands:
   publish-buster-deb:
-    executor: cloudsmith/default
     steps:
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
