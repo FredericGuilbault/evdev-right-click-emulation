@@ -2,6 +2,8 @@
 version: 2.1
 orbs:
   cloudsmith: cloudsmith/cloudsmith@1.0.4
+defaults: &defaults
+  working_directory: ~/work
 commands:
   publish-buster-deb:
     steps:
@@ -15,6 +17,7 @@ commands:
           package-path: ./*.deb
 jobs:
   build-buster-arm64:
+    <<: *defaults
     machine:
       enabled: true
       image: ubuntu-2004:202010-01
@@ -28,6 +31,7 @@ jobs:
             .circleci/build-debian.sh
       - run: publish-buster-deb
   build-buster-arm32:
+    <<: *defaults
     machine:
       enabled: true
       image: ubuntu-2004:202010-01
