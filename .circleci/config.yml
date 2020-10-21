@@ -7,12 +7,11 @@ jobs:
       - DOCKER_IMAGE=arm64v8/debian:buster-20201012
     steps:
     - checkout
-    - run: chmod a+x .circleci/*.sh
+    - setup_remote_docker:
+        version: 19.03.13
+     - run: chmod a+x .circleci/*.sh
     - run:
-        command: |
-          sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-          docker version
-          docker attach
+        command:
           set
 workflows:
   version: 2
