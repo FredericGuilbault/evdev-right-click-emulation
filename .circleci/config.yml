@@ -22,7 +22,7 @@ jobs:
           cloudsmith-repository: bbn-projects/bbn-repo
           package-format: deb
           package-distribution: raspbian/buster
-          package-path: ../*.deb
+          package-path: ../*arm64*.deb
   build-buster-arm32:
     machine:
       enabled: true
@@ -42,7 +42,7 @@ jobs:
           cloudsmith-repository: bbn-projects/bbn-repo
           package-format: deb
           package-distribution: raspbian/buster
-          package-path: ../*.deb
+          package-path: ../*arm32*.deb
 workflows:
   version: 2
   build_all:
