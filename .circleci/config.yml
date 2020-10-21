@@ -9,6 +9,7 @@ jobs:
       image: ubuntu-2004:202010-01
     environment:
       - DOCKER_IMAGE=arm64v8/debian:buster
+      - CONTAINER_DISTRO=buster
     steps:
       - checkout
       - run: chmod a+x .circleci/*.sh
