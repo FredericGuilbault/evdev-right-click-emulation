@@ -2,13 +2,15 @@
 version: 2.1
 jobs:
   build-arm64:
-    docker:
-    - arm64v8/debian:buster-20201012
+    machine: true
+    environment:
+      - DOCKER_IMAGE=arm64v8/debian:buster-20201012
     steps:
     - checkout
     - run: chmod a+x .circleci/*.sh
     - run:
         command: |
+          docker run --rm -t arm64v8/debian uname -m
           set
 workflows:
   version: 2
