@@ -20,11 +20,7 @@ jobs:
       - run: find .. -name \*.deb
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
-      - cloudsmith/publish:
-          cloudsmith-repository: bbn-projects/bbn-repo
-          package-format: deb
-          package-distribution: raspbian/buster
-          package-path: dist/*.deb
+      - run: .circleci/publish-cloudsmish.sh
 workflows:
   version: 2
   build_all:
