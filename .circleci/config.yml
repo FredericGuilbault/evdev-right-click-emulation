@@ -51,7 +51,7 @@ jobs:
           echo "deb-src http://ftp.us.debian.org/debian buster-updates main"
           | sudo tee -a /etc/apt/sources.list
       - run: cat /etc/apt/sources.list
-      - run: chmod a+x ci/*.sh
+      - run: chmod a+x .circleci/*.sh
       - run: .circleci/build-debian.sh
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
