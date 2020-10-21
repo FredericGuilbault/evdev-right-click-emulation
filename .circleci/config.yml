@@ -4,7 +4,7 @@ jobs:
   build-arm64:
     machine:
       enabled: true
-      image: circleci/classic:201808-01
+      image: ubuntu-2004:202010-01
   steps:
     - checkout
     - run: chmod a+x .circleci/*.sh
