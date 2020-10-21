@@ -36,7 +36,7 @@ docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get update
 docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev libinput-dev debhelper
 
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-    "cd ci-source; dpkg-buildpackage -rfakeroot -b -uc -us; mkdir dist; mv ../*.deb dist; chmod -R a+rw dist"
+    "cd ci-source; dpkg-buildpackage -b -uc -us; mkdir dist; mv ../*.deb dist; chmod -R a+rw dist"
 
 find dist -name \*.deb
 
