@@ -14,8 +14,7 @@ jobs:
       - run: chmod a+x .circleci/*.sh
       - run:
           command: |
-            docker run --rm --privileged multiarch/qemu-user-static --reset
-            .circleci/build-debian.sh
+            .circleci/build-debian-armXX.sh
             find ~ -name \*.deb
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
