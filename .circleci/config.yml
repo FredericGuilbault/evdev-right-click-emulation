@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   cloudsmith: cloudsmith/cloudsmith@1.0.4
 jobs:
-  build-arm64:
+  build-buster-arm64:
     machine:
       enabled: true
       image: ubuntu-2004:202010-01
@@ -15,7 +15,19 @@ jobs:
       - run:
           command: |
             .circleci/build-debian.sh
-  publish-deb:
+  build-buster-arm32:
+    machine:
+      enabled: true
+      image: ubuntu-2004:202010-01
+    environment:
+      - DOCKER_IMAGE=arm32v8/debian:buster
+    steps:
+      - checkout
+      - run: chmod a+x .circleci/*.sh
+      - run:
+          command: |
+            .circleci/build-debian.sh
+  publish-buster-deb:
     executor: cloudsmith/default
     steps:
       - cloudsmith/ensure-api-key
@@ -29,7 +41,7 @@ workflows:
   version: 2
   build_all:
     jobs:
-      - build-arm64
-      - publish-deb
+      - build-buster-arm64
+      - publish-buster-deb
         requires:
-          - build-arm64
+          - build-buster-arm64
