@@ -5,12 +5,12 @@ jobs:
     machine:
       enabled: true
       image: ubuntu-2004:202010-01
-  steps:
-    - checkout
-    - run: chmod a+x .circleci/*.sh
-    - run:
-        command: |
-          docker run --rm -t arm64v8/debian:buster uname -m
+    steps:
+      - checkout
+      - run: chmod a+x .circleci/*.sh
+      - run:
+          command: |
+            docker run --rm -t arm64v8/debian:buster uname -m
 workflows:
   version: 2
   build_all:
