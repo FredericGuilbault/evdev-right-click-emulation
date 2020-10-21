@@ -27,7 +27,7 @@ docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev l
 docker exec -ti $DOCKER_CONTAINER_ID pwd
 
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-    "dpkg-buildpackage -rfakeroot -b -uc -us"
+    "ci-source; dpkg-buildpackage -rfakeroot -b -uc -us"
 
 echo "Stopping"
 docker ps -a
