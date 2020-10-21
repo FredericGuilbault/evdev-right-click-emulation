@@ -2,8 +2,10 @@
 version: 2.1
 jobs:
   build-arm64:
-    machine: true
-    steps:
+    machine:
+      enabled: true
+      image: circleci/classic:201808-01
+  steps:
     - checkout
     - run: chmod a+x .circleci/*.sh
     - run:
