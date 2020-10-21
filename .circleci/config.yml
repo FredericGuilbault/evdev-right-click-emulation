@@ -11,7 +11,9 @@ jobs:
     - run:
         command: |
           sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
-          docker set
+          docker version
+          docker attach
+          set
 workflows:
   version: 2
   build_all:
