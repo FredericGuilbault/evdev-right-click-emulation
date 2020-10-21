@@ -10,12 +10,13 @@ jobs:
     environment:
       - DOCKER_IMAGE=arm64v8/debian:buster
       - CONTAINER_DISTRO=debian
+      - EMU=on
     steps:
       - checkout
       - run: chmod a+x .circleci/*.sh
       - run:
           command: |
-            .circleci/build-debian-armXX.sh
+            .circleci/build-debian.sh
           no_output_timeout: 30m
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
@@ -27,32 +28,32 @@ jobs:
     environment:
       - DOCKER_IMAGE=arm32v7/debian:buster
       - CONTAINER_DISTRO=debian
+      - EMU=on
     steps:
       - checkout
       - run: chmod a+x .circleci/*.sh
       - run:
           command: |
-            .circleci/build-debian-armXX.sh
+            .circleci/build-debian.sh
           no_output_timeout: 30m
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
       - run: .circleci/publish-cloudsmith.sh deb bbn-projects/bbn-repo raspbian/buster
   build-buster:
-    docker:
-      - image: circleci/buildpack-deps:buster-scm
+    machine:
+      enabled: true
+      image: ubuntu-2004:202010-01
     environment:
       - CONTAINER_DISTRO=debian
+      - DOCKER_IMAGE=circleci/buildpack-deps:buster-scm
+      - EMU=off
     steps:
       - checkout
-      - run: >
-          echo "deb-src http://ftp.us.debian.org/debian buster main"
-          | sudo tee -a /etc/apt/sources.list
-      - run: >
-          echo "deb-src http://ftp.us.debian.org/debian buster-updates main"
-          | sudo tee -a /etc/apt/sources.list
-      - run: cat /etc/apt/sources.list
       - run: chmod a+x .circleci/*.sh
-      - run: .circleci/build-debian.sh
+      - run:
+          command: |
+            .circleci/build-debian.sh
+          no_output_timeout: 30m
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
       - run: .circleci/publish-cloudsmith.sh deb bbn-projects/bbn-repo debian/buster
