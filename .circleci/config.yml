@@ -52,8 +52,8 @@ jobs:
   build-ubuntu-bionic-arm64:
     executor: boot-linux
     environment:
-      - DOCKER_IMAGE=arm64v8/ubuntu:bionic
-      - CONTAINER_DISTRO=ubuntu:bionic
+      - DOCKER_IMAGE=circleci/buildpack-deps:bionic-scm
+      - CONTAINER_DISTRO=buildpack-deps:bionic-scm
       - PKG_TYPE=deb
       - PKG_DISTRO=ubuntu/bionic
       - EMU=on
