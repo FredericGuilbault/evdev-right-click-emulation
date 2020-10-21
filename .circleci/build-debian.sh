@@ -27,7 +27,7 @@ docker run --privileged -d -ti -e "container=docker"  -v $WORK_DIR:rw $DOCKER_IM
 DOCKER_CONTAINER_ID=$(docker ps --last 4 | grep $CONTAINER_DISTRO | awk '{print $1}')
 
 if [[ "$PKG_DISTRO" = 'ubuntu'* ]]; then
-  docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
+  docker exec --privileged -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
      'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main" | tee -a /etc/apt/sources.list; ' \
      'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main" | tee -a /etc/apt/sources.list'
 fi
