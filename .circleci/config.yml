@@ -7,17 +7,18 @@ executors:
     machine:
       enabled: true
       image: ubuntu-2004:202010-01
-steps:
+commands:
   build-n-publish:
-    - checkout
-    - run: chmod a+x .circleci/*.sh
-    - run:
-        command: |
-          .circleci/build-debian.sh
-        no_output_timeout: 30m
-    - cloudsmith/ensure-api-key
-    - cloudsmith/install-cli
-    - run: .circleci/publish-cloudsmith.sh ${PKG_TYPE} bbn-projects/bbn-repo ${PKG_DISTRO}
+    steps:
+      - checkout
+      - run: chmod a+x .circleci/*.sh
+      - run:
+          command: |
+            .circleci/build-debian.sh
+          no_output_timeout: 30m
+      - cloudsmith/ensure-api-key
+      - cloudsmith/install-cli
+      - run: .circleci/publish-cloudsmith.sh ${PKG_TYPE} bbn-projects/bbn-repo ${PKG_DISTRO}
 jobs:
   build-debian-buster-arm64:
     executor: boot-linux
