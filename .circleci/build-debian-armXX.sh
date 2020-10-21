@@ -20,7 +20,7 @@ else
 fi
 
 docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw $DOCKER_IMAGE /bin/bash
-DOCKER_CONTAINER_ID=$(docker ps | grep $CONTAINER_DISTRO | awk '{print $1}')
+DOCKER_CONTAINER_ID=$(docker ps --last 8 | grep $CONTAINER_DISTRO | awk '{print $1}')
 
 docker exec -ti $DOCKER_CONTAINER_ID apt-get update
 docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev libinput-dev debhelper
