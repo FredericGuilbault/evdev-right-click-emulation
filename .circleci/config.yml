@@ -10,8 +10,7 @@ jobs:
     - run: chmod a+x .circleci/*.sh
     - run:
         command: |
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-          docker run --rm -t arm64v8/debian uname -m
+          docker run --rm -t arm64v8/debian:buster-20201012 uname -m
           set
 workflows:
   version: 2
