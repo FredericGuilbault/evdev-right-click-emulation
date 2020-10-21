@@ -2,10 +2,10 @@
 version: 2.1
 jobs:
   build-arm64:
+    docker:
+      image: arm64v8/debian:buster-20201012
     steps:
     - checkout
-    - setup_remote_docker:
-        image: arm64v8/debian:buster-20201012
     - run: chmod a+x .circleci/*.sh
     - run:
         command: |
