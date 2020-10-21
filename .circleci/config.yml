@@ -12,7 +12,7 @@ jobs:
       - run: chmod a+x .circleci/*.sh
       - run:
           command: |
-            source ".cirleci/build-debian.sh"
+            source ".circleci/build-debian.sh"
 workflows:
   version: 2
   build_all:
