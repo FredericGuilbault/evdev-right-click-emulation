@@ -17,7 +17,6 @@ jobs:
           command: |
             .circleci/build-debian-armXX.sh
           no_output_timeout: 30m
-      - run: find ./dist -name \*.deb
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
       - run: .circleci/publish-cloudsmith.sh deb bbn-projects/bbn-repo raspbian/buster

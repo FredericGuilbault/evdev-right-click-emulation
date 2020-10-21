@@ -26,7 +26,6 @@ DOCKER_CONTAINER_ID=$(docker ps --last 8 | grep $CONTAINER_DISTRO | awk '{print 
 
 docker exec -ti $DOCKER_CONTAINER_ID apt-get update
 docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev libinput-dev debhelper
-docker exec -ti $DOCKER_CONTAINER_ID pwd
 
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "cd ci-source; dpkg-buildpackage -rfakeroot -b -uc -us; mkdir dist; mv ../*.deb dist; chmod -R a+rw dist"
