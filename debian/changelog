@@ -1,4 +1,4 @@
-evdev-rce (0.9.5-1ppa1~bionic1) bionic; urgency=low
+evdev-rce (0.9.5-+dfsg-2) bionic; urgency=low
 
   * quilt
 
