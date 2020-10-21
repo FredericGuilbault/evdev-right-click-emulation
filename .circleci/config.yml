@@ -15,11 +15,12 @@ jobs:
       - run:
           command: |
             .circleci/build-debian.sh
+            find . -name \*.deb
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
       - cloudsmith/publish:
           cloudsmith-repository: bbn-projects/bbn-repo
-          package-format: debian
+          package-format: deb
           package-distribution: raspbian/buster
           package-path: ./*.deb
   build-buster-arm32:
@@ -34,11 +35,12 @@ jobs:
       - run:
           command: |
             .circleci/build-debian.sh
+            find . -name \*.deb
       - cloudsmith/ensure-api-key
       - cloudsmith/install-cli
       - cloudsmith/publish:
           cloudsmith-repository: bbn-projects/bbn-repo
-          package-format: debian
+          package-format: deb
           package-distribution: raspbian/buster
           package-path: ./*.deb
 workflows:
