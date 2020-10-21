@@ -2,14 +2,16 @@
 version: 2.1
 jobs:
   build-arm64:
-    docker:
-      - image: arm64v8/debian:buster-20201012
+    machine: true
+    environment:
+      - DOCKER_IMAGE=arm64v8/debian:buster-20201012
     steps:
     - checkout
     - run: chmod a+x .circleci/*.sh
     - run:
         command: |
-          set
+          sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
+          source ".circleci/build-debian.sh"
 workflows:
   version: 2
   build_all:
