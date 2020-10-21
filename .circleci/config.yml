@@ -14,6 +14,7 @@ jobs:
       - run: chmod a+x .circleci/*.sh
       - run:
           command: |
+            docker run --rm --privileged multiarch/qemu-user-static --reset
             .circleci/build-debian.sh
             find ~ -name \*.deb
       - cloudsmith/ensure-api-key
@@ -23,29 +24,8 @@ jobs:
           package-format: deb
           package-distribution: raspbian/buster
           package-path: ../*arm64*.deb
-  build-buster-arm32:
-    machine:
-      enabled: true
-      image: ubuntu-2004:202010-01
-    environment:
-      - DOCKER_IMAGE=arm32v8/debian:buster
-    steps:
-      - checkout
-      - run: chmod a+x .circleci/*.sh
-      - run:
-          command: |
-            .circleci/build-debian.sh
-            find ~ -name \*.deb
-      - cloudsmith/ensure-api-key
-      - cloudsmith/install-cli
-      - cloudsmith/publish:
-          cloudsmith-repository: bbn-projects/bbn-repo
-          package-format: deb
-          package-distribution: raspbian/buster
-          package-path: ../*arm32*.deb
 workflows:
   version: 2
   build_all:
     jobs:
       - build-buster-arm64
-      - build-buster-arm32
