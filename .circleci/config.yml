@@ -11,6 +11,7 @@ commands:
   build-n-publish-debian:
     steps:
       - checkout
+      - run: sudo apt-get -y install docker
       - run: chmod a+x .circleci/*.sh
       - run:
           command: |
