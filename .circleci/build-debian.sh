@@ -26,15 +26,8 @@ WORK_DIR=$(pwd):/ci-source
 docker run --privileged -d -ti -e "container=docker"  -v $WORK_DIR:rw $DOCKER_IMAGE /bin/bash
 DOCKER_CONTAINER_ID=$(docker ps --last 4 | grep $CONTAINER_DISTRO | awk '{print $1}')
 
-if [[ "$PKG_DISTRO" = 'ubuntu'* ]]; then
-  docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-  docker exec --privileged -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-     'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main" | tee -a /etc/apt/sources.list; ' \
-     'echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main" | tee -a /etc/apt/sources.list'
-fi
-
 docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get update
-docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev libinput-dev debhelper docker
+docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev libinput-dev
 
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "cd ci-source; dpkg-buildpackage -b -uc -us; mkdir dist; mv ../*.deb dist; chmod -R a+rw dist"
