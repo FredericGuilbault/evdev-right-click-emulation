@@ -83,3 +83,6 @@ workflows:
       - build-debian-buster-arm64
       - build-debian-buster-arm32
       - build-debian-buster-amd64
+      - build-ubuntu-bionic-arm64
+      - build-ubuntu-bionic-arm32
+      - build-ubuntu-bionic-amd64
