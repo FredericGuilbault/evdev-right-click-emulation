@@ -88,8 +88,8 @@ jobs:
   build-raspbian-buster-arm32:
     executor: boot-linux
     environment:
-      - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
-      - CONTAINER_DISTRO=raspbian-buster
+      - DOCKER_IMAGE=amd64/debian:buster
+      - CONTAINER_DISTRO=debian:buster
       - PKG_RELEASE=raspbian
       - PKG_DISTRO=buster
       - EMU=on
