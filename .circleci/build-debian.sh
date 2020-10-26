@@ -30,7 +30,7 @@ docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get update
 docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get -y install apt-transport-https wget curl gnupg2
 docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get -y install dpkg-dev debhelper devscripts equivs pkg-config apt-utils fakeroot
 docker exec --privileged -ti $DOCKER_CONTAINER_ID apt-get -y install libevdev2 libevdev-dev libinput-dev dh-exec autotools-dev autoconf
-docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
+docker exec --privileged -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "update-alternatives --set fakeroot /usr/bin/fakeroot-tcp; cd ci-source; dpkg-buildpackage -b -uc -us -j4; mkdir dist; mv ../*.deb dist; chmod -R a+rw dist"
 
 find dist -name \*.\*$EXT
