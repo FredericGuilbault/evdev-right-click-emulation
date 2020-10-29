@@ -1,1 +1,3 @@
 out/evdev-rce usr/bin
+rules/99-uinput.rules etc/udev/rules.d
+debian/evdev-rce.desktop usr/share/evdev-rce
